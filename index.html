@@ -1,0 +1,369 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>老街小馆 · 川菜</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg: #0e0e12;
+  --surface: #1a1816;
+  --surface2: #22201c;
+  --border: #2e2a26;
+  --accent: #e85d3a;
+  --accent2: #f0a030;
+  --text: #e6e0d8;
+  --text2: #a09888;
+  --text3: #6a6258;
+  --radius: 12px;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: "PingFang SC", "Microsoft YaHei", -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+/* Nav */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(14,14,18,0.92); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 24px; height: 56px;
+}
+.nav .logo { font-size: 17px; font-weight: 700; letter-spacing: 1px; }
+.nav .logo span { color: var(--accent); }
+.nav-links { display: flex; gap: 4px; }
+.nav-links a {
+  padding: 8px 14px; text-decoration: none; color: var(--text2);
+  font-size: 13px; border-radius: 6px; transition: all .15s;
+}
+.nav-links a:hover { color: var(--text); background: var(--surface2); }
+.nav .order-btn {
+  padding: 7px 18px; border: none; border-radius: 6px;
+  background: var(--accent); color: #fff; font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: opacity .15s;
+}
+.nav .order-btn:hover { opacity: .8; }
+
+/* Hero */
+.hero {
+  height: 100vh; min-height: 560px; margin-top: 56px;
+  background: linear-gradient(135deg, #0e0e12 0%, #1a1210 40%, #2a1810 70%, #0e0e12 100%);
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  text-align: center; padding: 40px 20px; position: relative; overflow: hidden;
+}
+.hero::before {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 600px 400px at 50% 40%, rgba(232,93,58,0.06) 0%, transparent 70%);
+}
+.hero .badge {
+  display: inline-block; padding: 6px 16px; border: 1px solid var(--accent);
+  border-radius: 20px; font-size: 12px; color: var(--accent);
+  letter-spacing: 2px; margin-bottom: 20px; position: relative;
+}
+.hero h1 { font-size: clamp(40px,8vw,72px); font-weight: 800; letter-spacing: 4px; position: relative; }
+.hero h1 span { color: var(--accent); }
+.hero .sub { font-size: clamp(14px,2.5vw,18px); color: var(--text2); margin-top: 12px; letter-spacing: 6px; position: relative; }
+.hero .desc { max-width: 500px; margin: 24px auto 0; font-size: 14px; color: var(--text3); line-height: 1.8; position: relative; }
+.hero .actions { margin-top: 32px; display: flex; gap: 12px; position: relative; }
+.hero .actions a {
+  padding: 11px 28px; border-radius: 8px; text-decoration: none;
+  font-size: 14px; font-weight: 600; transition: all .15s;
+}
+.hero .actions .primary { background: var(--accent); color: #fff; }
+.hero .actions .primary:hover { opacity: .85; }
+.hero .actions .secondary { border: 1px solid var(--border); color: var(--text2); }
+.hero .actions .secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+/* Section */
+.section { padding: 72px 20px; max-width: 1100px; margin: 0 auto; }
+.section-header { text-align: center; margin-bottom: 48px; }
+.section-header .tag {
+  display: inline-block; font-size: 11px; color: var(--accent);
+  letter-spacing: 3px; margin-bottom: 8px;
+}
+.section-header h2 { font-size: 28px; font-weight: 700; letter-spacing: 2px; }
+.section-header p { font-size: 14px; color: var(--text3); margin-top: 8px; }
+
+/* About */
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+.about-image { aspect-ratio: 4/3; border-radius: var(--radius); background: linear-gradient(135deg,#2a2018,#1a1410); display: flex; align-items: center; justify-content: center; font-size: 64px; border: 1px solid var(--border); }
+.about-text h3 { font-size: 20px; margin-bottom: 16px; }
+.about-text p { font-size: 14px; color: var(--text2); margin-bottom: 12px; line-height: 1.8; }
+
+/* Featured */
+.featured-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+.featured-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+.featured-card .img { height: 200px; display: flex; align-items: center; justify-content: center; font-size: 72px; border-bottom: 1px solid var(--border); }
+.featured-card .body { padding: 20px; }
+.featured-card .body h4 { font-size: 16px; margin-bottom: 6px; }
+.featured-card .body p { font-size: 13px; color: var(--text2); }
+.featured-card .body .price { font-size: 18px; font-weight: 700; color: var(--accent); margin-top: 8px; }
+
+/* Menu */
+.menu-categories { display: flex; justify-content: center; gap: 8px; margin-bottom: 36px; flex-wrap: wrap; }
+.menu-categories button { padding: 8px 20px; border: 1px solid var(--border); border-radius: 20px; background: transparent; color: var(--text2); font-size: 13px; cursor: pointer; }
+.menu-categories button.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+.menu-items { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.menu-item { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; }
+.menu-item .left .name { font-size: 15px; font-weight: 600; }
+.menu-item .left .desc { font-size: 12px; color: var(--text3); margin-top: 2px; }
+.menu-item .right { font-size: 17px; font-weight: 700; color: var(--accent); }
+
+/* Reviews */
+.reviews-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.review-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
+.review-card .stars { color: var(--accent2); font-size: 13px; margin-bottom: 8px; }
+.review-card .text { font-size: 13px; color: var(--text2); line-height: 1.7; }
+.review-card .author { font-size: 12px; color: var(--text3); margin-top: 12px; }
+
+/* Reserve Form */
+.reserve-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+.reserve-form { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+.form-row.full { grid-template-columns: 1fr; }
+.reserve-form input, .reserve-form select, .reserve-form textarea {
+  width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: 6px;
+  background: var(--surface2); color: var(--text); font-size: 14px; outline: none;
+}
+.reserve-form input:focus, .reserve-form select:focus, .reserve-form textarea:focus { border-color: var(--accent); }
+.reserve-form textarea { resize: vertical; min-height: 60px; }
+.reserve-form .submit-btn {
+  width: 100%; padding: 11px; border: none; border-radius: 6px;
+  background: var(--accent); color: #fff; font-size: 14px; font-weight: 600; cursor: pointer;
+}
+.reserve-form .submit-btn:hover { opacity: .85; }
+.reserve-info { display: flex; flex-direction: column; gap: 16px; }
+.reserve-info .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
+.reserve-info .card .emoji { font-size: 28px; margin-bottom: 8px; }
+.reserve-info .card h4 { font-size: 15px; margin-bottom: 4px; }
+.reserve-info .card p { font-size: 13px; color: var(--text2); }
+
+/* Floating action buttons */
+.fab-group { position: fixed; bottom: 24px; right: 24px; z-index: 99; display: flex; flex-direction: column; gap: 10px; }
+.fab {
+  width: 52px; height: 52px; border-radius: 50%; border: none;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  transition: transform .15s; text-decoration: none;
+}
+.fab:hover { transform: scale(1.08); }
+.fab.phone { background: var(--accent); color: #fff; }
+.fab.top { background: var(--surface2); color: var(--text2); border: 1px solid var(--border); }
+
+/* Toast */
+.toast {
+  position: fixed; top: 80px; left: 50%; transform: translateX(-50%);
+  background: var(--accent); color: #fff; padding: 12px 24px; border-radius: 8px;
+  font-size: 14px; z-index: 200; display: none;
+}
+
+/* Contact */
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+.contact-info .item { display: flex; gap: 16px; margin-bottom: 24px; }
+.contact-info .item .icon { width: 44px; height: 44px; border-radius: 50%; background: var(--surface); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.contact-info .item .label { font-size: 11px; color: var(--text3); }
+.contact-info .item .val { font-size: 15px; }
+.contact-map { border-radius: var(--radius); border: 1px solid var(--border); height: 300px; background: var(--surface); display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text3); font-size: 14px; }
+
+/* Footer */
+.footer { text-align: center; padding: 32px 20px; border-top: 1px solid var(--border); color: var(--text3); font-size: 12px; }
+
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .about-grid, .contact-grid, .reviews-grid { grid-template-columns: 1fr; }
+  .featured-grid { grid-template-columns: 1fr; }
+  .menu-items { grid-template-columns: 1fr; }
+  .reserve-grid { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="logo">老街<span>小馆</span></div>
+  <div class="nav-links">
+    <a href="#about">关于</a>
+    <a href="#menu">菜单</a>
+    <a href="#reviews">评价</a>
+    <a href="#reserve">订座</a>
+    <a href="#contact">联系</a>
+  </div>
+  <button class="order-btn" onclick="document.getElementById('reserve').scrollIntoView()">在线订座</button>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="top">
+  <div class="badge">🔥 成都味道</div>
+  <h1>老街<span>小馆</span></h1>
+  <p class="sub">· 地道川菜 · 二十二年老店 ·</p>
+  <p class="desc">每一道菜都是一个故事。我们坚持用最地道的食材，还原最正宗的老成都味道。麻、辣、鲜、香，只为懂吃的你。</p>
+  <div class="actions">
+    <a href="#reserve" class="primary">预约订座</a>
+    <a href="#menu" class="secondary">浏览菜单</a>
+  </div>
+</section>
+
+<!-- About -->
+<section class="section" id="about">
+  <div class="section-header"><div class="tag">ABOUT</div><h2>关于我们</h2><p>二十年如一日，做好每一道菜</p></div>
+  <div class="about-grid">
+    <div class="about-image">🍳</div>
+    <div class="about-text">
+      <h3>坚持传统，不忘初心</h3>
+      <p>老街小馆创立于2004年，从成都玉林路一家只有四张桌子的小店开始，到现在成为本地人与游客都喜爱的川菜馆。</p>
+      <p>我们的主厨张师傅师承成都名厨，二十二年如一日坚守传统川菜工艺。从辣椒的选材到火候的掌控，每一个环节都一丝不苟。</p>
+      <p>"让每个人都能吃到真正的川菜"——这是我们一直坚持的信念。</p>
+    </div>
+  </div>
+</section>
+
+<!-- Featured + Menu -->
+<section class="section" id="menu">
+  <div class="section-header"><div class="tag">MENU</div><h2>人气菜单</h2><p>总有一道合你胃口</p></div>
+  <h3 style="font-size:18px;font-weight:600;margin-bottom:20px;">🔥 招牌推荐</h3>
+  <div class="featured-grid" style="margin-bottom:40px;">
+    <div class="featured-card"><div class="img" style="background:linear-gradient(135deg,#1a0e0c,#2a1410)">🌶️</div><div class="body"><h4>水煮鱼</h4><p>鲜活草鱼片，麻辣鲜嫩</p><div class="price">¥68</div></div></div>
+    <div class="featured-card"><div class="img" style="background:linear-gradient(135deg,#1a1208,#2a1c10)">🫕</div><div class="body"><h4>麻婆豆腐</h4><p>经典川菜，下饭神器</p><div class="price">¥28</div></div></div>
+    <div class="featured-card"><div class="img" style="background:linear-gradient(135deg,#1a0e0c,#2a1410)">🥘</div><div class="body"><h4>毛血旺</h4><p>一锅红油煮沸人间烟火</p><div class="price">¥58</div></div></div>
+  </div>
+
+  <h3 style="font-size:16px;font-weight:600;margin-bottom:16px;">📋 完整菜单</h3>
+  <div class="menu-categories">
+    <button class="active" data-cat="hot">🌶️ 热菜</button>
+    <button data-cat="cold">🥗 凉菜</button>
+    <button data-cat="veg">🥬 素菜</button>
+    <button data-cat="soup">🍲 汤品</button>
+  </div>
+  <div class="menu-items" id="menuItems"></div>
+</section>
+
+<!-- Reviews -->
+<section class="section" id="reviews">
+  <div class="section-header"><div class="tag">REVIEWS</div><h2>顾客评价</h2><p>听听大家怎么说</p></div>
+  <div class="reviews-grid">
+    <div class="review-card"><div class="stars">★★★★★</div><div class="text">"在成都吃过最好吃的川菜！水煮鱼特别正宗，麻辣鲜香，连干三碗饭。已经推荐给所有朋友了。"</div><div class="author">—— 小王，成都本地人</div></div>
+    <div class="review-card"><div class="stars">★★★★★</div><div class="text">"从外地来旅游，被朋友带来这家店。麻婆豆腐绝了，老板娘还送了冰粉，服务很热情。下次来成都还会来！"</div><div class="author">—— 小李，广州游客</div></div>
+    <div class="review-card"><div class="stars">★★★★☆</div><div class="text">"老顾客了，吃了五六年。味道一直很稳定，价格也很亲民。就是饭点经常要排队，建议提前订座。"</div><div class="author">—— 张姐，附近居民</div></div>
+  </div>
+</section>
+
+<!-- Reserve -->
+<section class="section" id="reserve">
+  <div class="section-header"><div class="tag">RESERVATION</div><h2>在线订座</h2><p>提前预约，免排队等候</p></div>
+  <div class="reserve-grid">
+    <div class="reserve-form">
+      <div class="form-row full"><input type="text" id="rName" placeholder="您的姓名 *"></div>
+      <div class="form-row full"><input type="tel" id="rPhone" placeholder="手机号 *"></div>
+      <div class="form-row">
+        <input type="date" id="rDate">
+        <select id="rTime"><option value="11:00">11:00</option><option value="11:30">11:30</option><option value="12:00">12:00</option><option value="12:30">12:30</option><option value="17:00">17:00</option><option value="17:30">17:30</option><option value="18:00" selected>18:00</option><option value="18:30">18:30</option><option value="19:00">19:00</option><option value="19:30">19:30</option><option value="20:00">20:00</option></select>
+      </div>
+      <div class="form-row">
+        <select id="rPeople"><option value="1">1位</option><option value="2" selected>2位</option><option value="3">3位</option><option value="4">4位</option><option value="5">5位</option><option value="6">6位</option><option value="7">7位</option><option value="8">8位以上</option></select>
+        <input type="hidden" id="rPeopleDisplay">
+      </div>
+      <div class="form-row full"><textarea id="rNote" placeholder="特殊要求（生日、忌口等，可选）"></textarea></div>
+      <button class="submit-btn" onclick="submitReserve()">提交预约</button>
+    </div>
+    <div class="reserve-info">
+      <div class="card"><div class="emoji">📞</div><h4>电话订座</h4><p>028-8555 1234<br>周一至周日 11:00-22:00</p></div>
+      <div class="card"><div class="emoji">💬</div><h4>微信订座</h4><p>加好友：laojiexiaoguan028</p></div>
+      <div class="card"><div class="emoji">📍</div><h4>到店地址</h4><p>成都市锦江区玉林路18号<br>（玉林生活广场对面）</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="section" id="contact" style="padding-bottom:20px;">
+  <div class="section-header"><div class="tag">VISIT US</div><h2>联系我们</h2><p>欢迎到店品尝</p></div>
+  <div class="contact-grid">
+    <div class="contact-info">
+      <div class="item"><div class="icon">📍</div><div><div class="label">地址</div><div class="val">成都市锦江区玉林路18号</div></div></div>
+      <div class="item"><div class="icon">📞</div><div><div class="label">电话</div><div class="val">028-8555 1234</div></div></div>
+      <div class="item"><div class="icon">🕐</div><div><div class="label">营业时间</div><div class="val">周一至周日 11:00 - 22:00</div></div></div>
+      <div class="item"><div class="icon">💬</div><div><div class="label">微信</div><div class="val">laojiexiaoguan028</div></div></div>
+    </div>
+    <div class="contact-map">
+      <div style="font-size:40px;margin-bottom:8px;">🗺️</div>
+      <div>成都市锦江区玉林路18号</div>
+      <div style="font-size:12px;margin-top:4px;">（玉林生活广场对面）</div>
+      <a href="https://uri.amap.com/marker?position=104.0708,30.6495&name=老街小馆" target="_blank" style="margin-top:12px;padding:8px 20px;border:1px solid var(--border);border-radius:6px;color:var(--text2);text-decoration:none;font-size:13px;">打开高德地图 →</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>© 2026 老街小馆 · 匠心川味 二十二年传承</p>
+</footer>
+
+<!-- Floating buttons -->
+<div class="fab-group">
+  <a href="tel:02885551234" class="fab phone">📞</a>
+  <a href="#top" class="fab top">↑</a>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+const menuData = {
+  hot: [{name:'水煮鱼',desc:'草鱼片配汉源花椒、二荆条',price:68},{name:'麻婆豆腐',desc:'经典川菜，麻辣烫香酥嫩',price:28},{name:'辣子鸡',desc:'干辣椒爆炒，外酥里嫩',price:42},{name:'毛血旺',desc:'鸭血毛肚，一锅红油',price:58},{name:'回锅肉',desc:'经典川菜，肥而不腻',price:36},{name:'鱼香肉丝',desc:'鱼香味型，酸甜微辣',price:32}],
+  cold: [{name:'口水鸡',desc:'红油浇汁，麻辣鲜香',price:32},{name:'夫妻肺片',desc:'卤制牛杂，红油拌制',price:35},{name:'蒜泥白肉',desc:'薄切五花，蒜香浓郁',price:38},{name:'红油耳片',desc:'猪耳薄切，红油入味',price:28}],
+  veg: [{name:'干煸四季豆',desc:'大火干煸，焦香可口',price:22},{name:'鱼香茄子',desc:'经典鱼香味型，下饭神器',price:24},{name:'清炒时蔬',desc:'当日新鲜蔬菜，清淡解腻',price:18},{name:'虎皮青椒',desc:'煎至焦香，酱汁入味',price:16}],
+  soup: [{name:'酸辣汤',desc:'酸辣开胃，暖身驱寒',price:16},{name:'番茄蛋汤',desc:'家常味道，清淡爽口',price:12},{name:'老鸭汤',desc:'慢炖四小时，汤浓味鲜',price:38},{name:'冰粉',desc:'手工制作，清凉解辣',price:8}]
+};
+
+function renderMenu(cat) {
+  const items = menuData[cat];
+  document.getElementById('menuItems').innerHTML = items.map(i => `
+    <div class="menu-item">
+      <div class="left"><div class="name">${i.name}</div><div class="desc">${i.desc}</div></div>
+      <div class="right">¥${i.price}</div>
+    </div>
+  `).join('');
+}
+renderMenu('hot');
+
+document.querySelector('.menu-categories').addEventListener('click', e => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+  document.querySelectorAll('.menu-categories button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderMenu(btn.dataset.cat);
+});
+
+function showToast(msg, isErr) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.style.display = 'block';
+  t.style.background = isErr ? '#e85d3a' : '#00d4aa';
+  setTimeout(() => t.style.display = 'none', 2500);
+}
+
+function submitReserve() {
+  const name = document.getElementById('rName').value.trim();
+  const phone = document.getElementById('rPhone').value.trim();
+  const date = document.getElementById('rDate').value;
+  const time = document.getElementById('rTime').value;
+  const people = document.getElementById('rPeople').value;
+  if (!name) return showToast('请填写姓名', true);
+  if (!phone || phone.length < 8) return showToast('请填写正确的手机号', true);
+  if (!date) { document.getElementById('rDate').valueAsDate = new Date(); return showToast('请选择日期', true); }
+  const msg = `✅ 预约成功！\n${name}，${people}位，${date} ${time}\n我们会尽快电话确认。`;
+  showToast(msg.replace(/\n/g, ' · '));
+  document.getElementById('rName').value = '';
+  document.getElementById('rPhone').value = '';
+  document.getElementById('rNote').value = '';
+}
+
+// Set default date to tomorrow
+const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate() + 1);
+document.getElementById('rDate').valueAsDate = tomorrow;
+</script>
+</body>
+</html>
